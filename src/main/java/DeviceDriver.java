@@ -39,6 +39,15 @@ public class DeviceDriver {
     }
 
     public void write(long address, byte data) {
-        // TODO: implement this method
+        if (isEmpty(address)) {
+            flashMemory.write(address, data);
+        } else {
+            throw new WriteFailException("Failed to write");
+        }
+    }
+
+    private boolean isEmpty(long address) {
+        byte prevData = read(address);
+        return prevData == (byte) 0xFF;
     }
 }
